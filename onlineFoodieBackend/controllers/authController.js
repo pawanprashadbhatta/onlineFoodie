@@ -104,3 +104,62 @@ return res.status(200).json({
 
     }
 
+
+
+    //verify otp 
+
+    exports.verifyOtp=async(req,res)=>{
+        const {email,otp}=req.body
+        if (!email) {
+            return res.status(400).json({
+                message: "Please provide email"
+            });
+        }
+        
+        if (!otp) {
+            return res.status(400).json({
+                message: "Please provide otp"
+            });
+        }
+        
+        //check if that otp is of provided email or not
+        const userExist=await User.find({email})
+        if(userExist.length==0){
+            return res.status(400).json({
+                message:"Invalid email provided"
+            })
+        }
+        //check if email is also correct and verify for correct otp
+        if(userExist[0].otp !==otp){
+            return res.status(400).json({
+                message:"please provide the correct otp "
+            })
+        }else{
+            userExist[0].otp=undefined
+           await userExist[0].save()
+            res.status(200).json({
+                message:"go for change password ..Thankyou"
+            })
+        }
+    }
+
+    exports.resetPassword=async(req,res)=>{
+        const {email,password,confirmPassword}=req.body
+        if(!email||!password||!confirmPassword){
+           return res.status(400).json({
+                message:"please provide new password and email and confirmPassword"
+            })
+        }
+        const userExist=await User.find({email})
+        if(!userExist[0].length==0){
+            return res.status(400).json({
+                message:"please provide valid email for reset password"
+            })
+        }
+        userExist[0].password=bcrypt.hashSync(password,8)
+       await userExist[0].save()
+       res.status(200).json({
+        message:"password changed successfully"
+       })
+    }
+
