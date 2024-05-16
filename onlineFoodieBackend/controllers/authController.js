@@ -136,6 +136,7 @@ return res.status(200).json({
             })
         }else{
             userExist[0].otp=undefined
+            userExist[0].isOtpVerified=true
            await userExist[0].save()
             res.status(200).json({
                 message:"go for change password ..Thankyou"
@@ -150,6 +151,11 @@ return res.status(200).json({
                 message:"please provide new password and email and confirmPassword"
             })
         }
+        if(userExist[0].isOtpVerified !==true){
+            return res.status(400).json({
+                message:"Your can not perform this action"
+            })
+        }
         const userExist=await User.find({email})
         if(!userExist[0].length==0){
             return res.status(400).json({
@@ -157,6 +163,7 @@ return res.status(200).json({
             })
         }
         userExist[0].password=bcrypt.hashSync(password,8)
+        userExist[0].isOtpVerified=false
        await userExist[0].save()
        res.status(200).json({
         message:"password changed successfully"
