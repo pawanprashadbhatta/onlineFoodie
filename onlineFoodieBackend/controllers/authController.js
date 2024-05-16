@@ -70,6 +70,27 @@ const token=jwt.sign({id:userexist[0]._id},process.env.JWTSECRET_KEY,{expiresIn:
             message:"please provide correct email or password"
         })
     }
-    //generate token
+ 
 
 }
+
+exports.forgotPassword=async(req,res)=>{
+    const {email}=req.body
+    if(!email){
+        return res.status(400).json({
+            message:"please provide email"
+        })
+    }
+    //check if email is registered or not
+    const userExist=await User.find({email})
+    if(userExist.length==0){
+    return res.status(400).json({
+        message:"no user exist with this email"
+    })
+        }
+//send otp to email
+const otp=Math.floor(1000+Math.random()*9000)
+
+
+    }
+
