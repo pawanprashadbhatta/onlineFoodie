@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended:true}))
  connectToDatabase()
  const authRoute=require("./routes/authRoute")
  //routes here
-app.use("/api/route/",authRoute)
+app.use("/api/auth",authRoute)
 
 app.get("/",(req,res)=>{
     res.status(400).json({

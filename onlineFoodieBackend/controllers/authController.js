@@ -1,6 +1,7 @@
 const User = require("../models/userModel/userModel")
 const bcrypt=require("bcrypt")
 const jwt =require("jsonwebtoken")
+const sendEmail = require("../services/sendEmail")
 // Register user api
 exports.registerUser=async(req,res)=>{
     const {email,userName,password,confirmPassword,phoneNumber}=req.body
@@ -89,8 +90,17 @@ exports.forgotPassword=async(req,res)=>{
     })
         }
 //send otp to email
-const otp=Math.floor(1000+Math.random()*9000)
-
+const otp= Math.floor(1000+Math.random()*9000)
+userExist[0].otp=otp
+userExist[0].save()
+await sendEmail({
+    email,
+    subject:"your otp for forgetPassword is",
+    message:`Your otp is ${otp} dont share with anyone`
+})
+return res.status(200).json({
+    message:"otp send successfully"
+})
 
     }
 
