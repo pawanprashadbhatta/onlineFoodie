@@ -11,10 +11,12 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
  //connect to database
- connectToDatabase()
+ connectToDatabase(process.env.MONGODB_URI)
  const authRoute=require("./routes/authRoute")
+ const productRoute=require('./routes/productRoute')
  //routes here
 app.use("/api/auth",authRoute)
+app.use('/api/product/',productRoute)
 
 app.get("/",(req,res)=>{
     res.status(400).json({
