@@ -1,4 +1,4 @@
-const restrictTo=(...roles)=>{
+const permitedTo=(...roles)=>{
 return (req,res,next)=>{
 const userRole=req.user.roles
 if(!roles.includes(userRole)){
@@ -10,4 +10,4 @@ if(!roles.includes(userRole)){
 }
 }
 }
-module.exports=restrictTo
+module.exports=permitedTo

@@ -18,6 +18,9 @@ app.use(express.urlencoded({extended:true}))
 app.use("/api/auth",authRoute)
 app.use('/api/product/',productRoute)
 
+
+//telling nodejs to give access to uploads filder
+app.use(express.static('/uploads'))
 app.get("/",(req,res)=>{
     res.status(400).json({
         message:"hello this is test api"
