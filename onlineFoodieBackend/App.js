@@ -14,10 +14,11 @@ app.use(express.urlencoded({extended:true}))
  connectToDatabase(process.env.MONGODB_URI)
  const authRoute=require("./routes/authRoute")
  const productRoute=require('./routes/productRoute')
+ const adminUserRoute=require("./routes/adminUserRoute")
  //routes here
 app.use("/api/auth",authRoute)
 app.use('/api/product/',productRoute)
-
+app.use('/api/admin/',adminUserRoute)
 
 //telling nodejs to give access to uploads filder
 app.use(express.static('/uploads'))

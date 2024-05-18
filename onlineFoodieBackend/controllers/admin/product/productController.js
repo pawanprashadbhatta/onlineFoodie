@@ -1,5 +1,5 @@
 const Product = require("../../../models/productModel/productModel")
-
+const fs=require('fs')
 exports.createProduct = async (req,res)=>{
 console.log(req.user)
     const file = req.file
@@ -83,3 +83,78 @@ exports.getproduct=async(req,res)=>{
    
 }
 
+//deleteproduct api
+exports.deleteProduct=async(req,res)=>{
+    const {id}=req.params
+    if(!id){
+        return res.status(400).json({
+            messge:"please provide id of product you want to delete"
+        })
+    }
+    const oldProductImage=oldData.productImage
+const lengthToCut=process.env.BACKEND_URL
+const finalLength=oldProductImage.slice(lengthToCut)
+if(req.file && req.file.filename){
+    //remove file from upload folder
+    fs.unlink("./uploads"+finalLength,(err)=>{
+        if(err){
+            console.log("error deleting file",err) 
+        }else{
+            console.log("file deleted successfully")
+        }
+    })
+
+}
+    await Product.findByIdAndDelete(id)
+    res.status(200).json({
+        message:"product deleteed successfully"
+    })}
+
+    //update product
+    exports.updateProduct=async(req,res)=>{
+const {id}=req.params
+const{productName,productDescription,productStatus,productStock,productPrice}=req.body
+if(!productName||!productDescription||!productStatus||!productStock||!productPrice ||!id){
+    return res.status(400).json({
+        message:"please provide the detail"
+    })
+}
+
+const oldData=await Product.findOne(id)
+if(!oldData){
+    return res.status(400).json({
+        message:"no product with that id availlable "
+    })
+}
+const oldProductImage=oldData.productImage
+const lengthToCut=process.env.BACKEND_URL
+const finalLength=oldProductImage.slice(lengthToCut)
+if(req.file && req.file.filename){
+    //remove file from upload folder
+    fs.unlink("./uploads"+finalLength,(err)=>{
+        if(err){
+            console.log("error deleting file",err) 
+        }else{
+            console.log("file deleted successfully")
+        }
+    })
+
+}
+const newdata= await Product.findByIdAndUpdate(id,{
+    productName ,
+    productDescription ,
+    productPrice,
+    productStatus,
+    productStock,
+    productImage : req.file && req.file.filename ? process.env.BACKEND_URL +  req.file.filename :  oldProductImage
+},{
+    new : true,
+
+})
+res.status(200).json({
+    messagee : "Product updated successfully",
+    data 
+})
+}
+
+   
