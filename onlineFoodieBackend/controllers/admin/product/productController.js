@@ -35,14 +35,8 @@ console.log(req.user)
 }
 
 exports.getProducts=async(req,res)=>{
-    const {id}=req.params
-    if(!id){
-        return res.status(400).json({
-            message:"please provide product id",
-          
-        })
-          } 
-       const products=await Product.findOne(id)
+   const {id}=req.params
+       const products=await Product.find(id)
        if(!products){
         res.status(400).json({
             message:"no product found ",
@@ -89,6 +83,12 @@ exports.deleteProduct=async(req,res)=>{
     if(!id){
         return res.status(400).json({
             messge:"please provide id of product you want to delete"
+        })
+    }
+    const oldData = await Product.findById(id)
+    if(!oldData){
+        return res.status(404).json({
+            message : "No data found with that id"
         })
     }
     const oldProductImage=oldData.productImage

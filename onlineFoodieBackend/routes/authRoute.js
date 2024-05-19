@@ -1,4 +1,5 @@
-const { registerUser, loginUser, forgotPassword, verifyOtp, resetPassword } = require("../controllers/authController")
+const { registerUser, loginUser, forgotPassword, verifyOtp, resetPassword } = require("../controllers/auth/authController")
+
 
 const router=require("express").Router()
  

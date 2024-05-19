@@ -8,7 +8,7 @@ const isAuthenticated=async(req,res,next)=>{
     const token= req.headers.authorization
     if(!token){
         return res.status(400).json({
-            message:'please provide token'
+            message:'please provide login token'
         })
     }
         //if token pathayo vane and now to verify if it is ligit or not 

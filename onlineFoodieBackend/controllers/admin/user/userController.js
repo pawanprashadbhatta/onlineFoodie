@@ -1,15 +1,25 @@
 const User = require("../../../models/userModel/userModel")
 
-exports.GetAdminUser=async(req,res)=>{
-    const user=await User.find().select(["-password"])
-    if(user.length>1){
-        return res.status(400).json({
+exports.getUser=async(req,res)=>{
+    
+    const data=await User.find({role:{$ne:"admin"}}).select(["-password","-createdAt","-updatedAt","-role","-__v"])
+   if(data.length>1){
+    return res.status(200).json({
+        message: "Non-admin users fetched successfully",
+        data
+    });
+
+   }
+   
+   
+    if(data.length>1){
+        return res.status(200).json({
             message:"user fetched successfully",
             data
         })
     }
 
-    res.status(400).json({
+    res.status(200).json({
         message:"user collection is empty"
         ,data:[]
     })

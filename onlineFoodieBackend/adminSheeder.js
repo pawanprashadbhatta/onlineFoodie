@@ -11,7 +11,8 @@ await User.create({
     phoneNumber:9812779599,
     userName:"admin",
     role:"admin",
-    password:bcrypt.hashSync(password,8)
+    
+    password:bcrypt.hashSync("admin",8)
 
 })
 
