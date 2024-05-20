@@ -26,6 +26,10 @@ const Schema=mongoose.Schema
         otp:{
             type:Number
         },
+        cart:[{
+            type:Schema.Types.ObjectId,
+            ref:"Product"
+        }]
     },{
         timestamps:true
     })
