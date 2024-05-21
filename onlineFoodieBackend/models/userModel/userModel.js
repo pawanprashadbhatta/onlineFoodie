@@ -26,10 +26,13 @@ const Schema=mongoose.Schema
         otp:{
             type:Number
         },
-        cart:[{
-            type:Schema.Types.ObjectId,
-            ref:"Product"
-        }]
+        cart : [{
+            quantity : {
+                type : Number,
+                required : true
+            },
+            product : {type : Schema.Types.ObjectId, ref : "Product"}
+        }],
     },{
         timestamps:true
     })

@@ -17,12 +17,14 @@ app.use(express.urlencoded({extended:true}))
  const adminUserRoute=require("./routes/adminUserRoute")
  const reviewRoute=require("./routes/reviewRoute")
  const userProfileRoute=require("./routes/userProfileRoute")
+ const cartRoute=require("./routes/cartRoute")
  //routes here
 app.use("/api/auth",authRoute)
 app.use('/api',productRoute)
 app.use('/api',adminUserRoute)
 app.use('/api',reviewRoute)
 app.use('/api',userProfileRoute)
+app.use('/api',cartRoute)
 //telling nodejs to give access to uploads filder
 app.use(express.static('/uploads'))
 app.get("/",(req,res)=>{
