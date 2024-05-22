@@ -1,5 +1,7 @@
-const Order = require("../../../model/orderSchema")
-const User = require("../../../model/userModel")
+
+
+const Order = require("../../../models/orderModel/orderModel")
+const User = require("../../../models/userModel/userModel")
 
 exports.createOrder = async(req,res)=>{
  const userId = req.user.id

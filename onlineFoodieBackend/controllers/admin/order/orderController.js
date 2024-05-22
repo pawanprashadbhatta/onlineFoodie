@@ -1,5 +1,7 @@
-const Order = require("../../../model/orderSchema")
-const Product = require("../../../model/productModel")
+
+
+const Order = require("../../../models/orderModel/orderModel")
+const Product = require("../../../models/productModel/productModel")
 
 exports.getAllOrders = async(req,res)=>{
   
