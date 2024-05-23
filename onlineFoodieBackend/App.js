@@ -21,6 +21,7 @@ app.use(express.urlencoded({extended:true}))
  const orderRoute=require("./routes/orderRoute")
  const orderAdminRoute=require("./routes/adminOrderRoute")
  const paymentRoute=require("./routes/paymentRoute")
+ const smsRoute=require("./routes/smsRoute")
  //routes here
 app.use("/api/auth",authRoute)
 app.use('/api',productRoute)
@@ -31,6 +32,7 @@ app.use('/api',cartRoute)
 app.use('/api',orderRoute)
 app.use('/api',orderAdminRoute)
 app.use('/api',paymentRoute)
+app.use('/api/auth',smsRoute)
 //telling nodejs to give access to uploads filder
 app.use(express.static('/uploads'))
 app.get("/",(req,res)=>{
